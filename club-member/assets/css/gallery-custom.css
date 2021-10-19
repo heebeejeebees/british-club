@@ -1,0 +1,10 @@
+
+.gallery-thumbnail
+{
+	max-width:150pt;
+	max-height:150pt;
+	margin:0;
+	padding:10pt;	
+	float: left;
+	border:1px dashed #021a40;
+}

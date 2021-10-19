@@ -1,0 +1,161 @@
+@font-face {
+  font-family: 'Quicksand';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/quicksand/v19/6xK-dSZaM9iE8KbpRA_LJ3z8mH9BOJvgkP8o58a-wg.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'Quicksand';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(/sas/assets/fonts/q700.woff2) format('woff2');
+}
+
+html, body
+{
+	background-color: #484d5c;
+	color: #c0ccd4;
+}
+
+html, div, input, button
+{
+	font-family: 'Quicksand', sans-serif;
+}
+
+div
+{
+	font-size: 14px;
+}
+
+h1,h2,h3,h4
+{
+	font-weight: normal;
+}
+
+button
+{
+	
+}
+
+a
+{
+	text-decoration: none;
+	color: #ffce00;
+}
+
+a:hover
+{
+	color: #ffffff;
+}
+
+label
+{
+	display: block;
+	font-size: 10px;
+	margin: 5px 0;
+}
+
+select, input
+{
+	padding: 5px 2px;
+}
+
+#sascontent
+{
+	margin: 10px 0;
+    color: black;
+    background-color: aliceblue;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.header-content
+{
+	margin: 10px 0 20px 0;
+	position: relative;
+}
+
+.header-content img
+{
+	width: 50px;
+}
+
+.header-content .title
+{
+	font-size: 28px;
+}
+
+.logo
+{
+	width: 100px;
+}
+
+.logo-small
+{
+	width: 75px;
+}
+
+.logo-small-right
+{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 50px;
+	margin: 5px 10px;
+}
+
+.token
+{
+	font-size: 1px;
+}
+
+.action-button, .btn-primary
+{
+	background-color: #484d5c;
+    border: 1px solid #ffce00;
+    padding: 5px 12px;
+    color: #ffce00;
+}
+
+.btn-primary:hover, .btn-primary.focus, .btn-primary:focus, .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle
+{
+	background-color: #664f5f;
+	border: 1px solid #ffce00;
+	box-shadow: none;
+	color: #ffce00;
+}
+
+.table-action-button
+{
+	background-color: #484d5c;
+    padding: 5px 10px;
+    color: #ffce00;
+    border-radius: 10px;
+    border: 0px solid;
+}
+
+.dataTables_length
+{
+	display: none;
+}
+
+.dataTables_info
+{
+	font-size: 10px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover
+{
+	padding: 2px;
+	border: 0px solid;
+	background-color: transparent;
+}
+
+.list-group-item
+{
+	background-color: transparent;
+	border: 1px solid rgba(255,255,255,.125);
+}

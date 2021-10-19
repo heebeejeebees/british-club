@@ -1,0 +1,138 @@
+-- View: public.Billing_Month
+
+-- DROP VIEW public."Billing_Month";
+
+CREATE OR REPLACE VIEW public."Billing_Month"
+ AS
+ SELECT "Billing"."MemberID",
+    "Member"."Name",
+    date_part('month'::text, "Billing"."Date") AS "Mth",
+    date_part('year'::text, "Billing"."Date") AS "Yr",
+    sum("Billing"."Trans_Amt")::numeric AS "Amt"
+   FROM "Billing"
+     JOIN "Member" ON "Billing"."MemberID" = "Member"."MemberID"
+  GROUP BY "Billing"."MemberID", "Member"."Name", (date_part('month'::text, "Billing"."Date")), (date_part('year'::text, "Billing"."Date"));
+
+ALTER TABLE public."Billing_Month"
+    OWNER TO postgres;
+
+
+-- View: public.Billing_Aging_Basic
+
+-- DROP VIEW public."Billing_Aging_Basic";
+
+CREATE OR REPLACE VIEW public."Billing_Aging_Basic"
+ AS
+ SELECT "Billing"."MemberID",
+    "Member"."Name",
+    "Billing"."Trans_Amt",
+        CASE
+            WHEN date_part('day'::text, now() - "Billing"."Date"::timestamp with time zone) <= '30'::double precision THEN "Billing"."Trans_Amt"
+            ELSE '$0.00'::money
+        END AS current,
+        CASE
+            WHEN date_part('day'::text, now() - "Billing"."Date"::timestamp with time zone) >= '30'::double precision AND date_part('day'::text, now() - "Billing"."Date"::timestamp with time zone) <= '60'::double precision THEN "Billing"."Trans_Amt"
+            ELSE '$0.00'::money
+        END AS "D30",
+        CASE
+            WHEN date_part('day'::text, now() - "Billing"."Date"::timestamp with time zone) >= '60'::double precision AND date_part('day'::text, now() - "Billing"."Date"::timestamp with time zone) <= '90'::double precision THEN "Billing"."Trans_Amt"
+            ELSE '$0.00'::money
+        END AS "D60",
+        CASE
+            WHEN date_part('day'::text, now() - "Billing"."Date"::timestamp with time zone) >= '90'::double precision THEN "Billing"."Trans_Amt"
+            ELSE '$0.00'::money
+        END AS "D90"
+   FROM "Billing"
+     JOIN "Member" ON "Billing"."MemberID" = "Member"."MemberID";
+
+ALTER TABLE public."Billing_Aging_Basic"
+    OWNER TO postgres;
+
+-- View: public.BIlling_Aging_View
+
+-- DROP VIEW public."BIlling_Aging_View";
+
+CREATE OR REPLACE VIEW public."BIlling_Aging_View"
+ AS
+ SELECT "Billing_Aging_Basic"."MemberID",
+    "Billing_Aging_Basic"."Name",
+    sum("Billing_Aging_Basic"."Trans_Amt") AS total,
+    sum("Billing_Aging_Basic".current) AS "Current",
+    sum("Billing_Aging_Basic"."D30") AS "30d",
+    sum("Billing_Aging_Basic"."D60") AS "60d",
+    sum("Billing_Aging_Basic"."D90") AS "90d"
+   FROM "Billing_Aging_Basic"
+  GROUP BY "Billing_Aging_Basic"."MemberID", "Billing_Aging_Basic"."Name";
+
+ALTER TABLE public."BIlling_Aging_View"
+    OWNER TO postgres;
+
+-- View: public.Billing_list
+
+-- DROP VIEW public."Billing_list";
+
+CREATE OR REPLACE VIEW public."Billing_list"
+ AS
+ SELECT "Billing"."BillingID",
+    "Member"."Name",
+    "Billing"."Date",
+    "Billing"."Trans_Amt",
+    "Billing"."Trans_Desc"
+   FROM "Billing"
+     JOIN "Member" ON "Billing"."MemberID" = "Member"."MemberID";
+
+ALTER TABLE public."Billing_list"
+    OWNER TO postgres;
+
+-- View: public."GuestRegView"
+
+-- DROP VIEW public."GuestRegView";
+
+CREATE OR REPLACE VIEW public."GuestRegView" AS
+ SELECT a1."GuestRegID",
+    a1."Date",
+    a1."Status",
+    a2."MemberID",
+    a2."Username",
+    a2."Password",
+    a2."Name",
+    a2."JoinDate",
+    a2."Address",
+    a2."Active",
+    a2."MemberProfileID"
+   FROM "GuestReg" a1
+     JOIN "Member" a2 ON a1."MemberID" = a2."MemberID"
+  WHERE a1."Status"::text = 'CONFIRMED'::text
+  ORDER BY a1."GuestRegID";
+
+ALTER TABLE public."GuestRegView"
+    OWNER TO postgres;
+
+-- View: public."GuestRegGuestListView"
+
+-- DROP VIEW public."GuestRegGuestListView";
+
+CREATE OR REPLACE VIEW public."GuestRegGuestListView" AS
+ SELECT a1."Name" AS "GuestName",
+    a1."TimeIn",
+    a1."TimeOut",
+    a1."QrCode",
+    a1."GuestRegID",
+    a1."GuestRegGuestListID",
+    a2."Date",
+    a2."Status",
+    a3."MemberID",
+    a3."Username",
+    a3."Password",
+    a3."Name",
+    a3."JoinDate",
+    a3."Address",
+    a3."Active",
+    a3."MemberProfileID"
+   FROM "GuestRegGuestList" a1
+     JOIN "GuestReg" a2 ON a1."GuestRegID" = a2."GuestRegID"
+     JOIN "Member" a3 ON a2."MemberID" = a3."MemberID";
+
+ALTER TABLE public."GuestRegGuestListView"
+    OWNER TO postgres;
+

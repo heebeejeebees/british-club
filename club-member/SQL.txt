@@ -1,0 +1,230 @@
+-- Table: public.Billing
+
+-- DROP TABLE public."Billing";
+
+CREATE TABLE IF NOT EXISTS public."Billing"
+(
+    "BillingID" integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    "MemberID" integer,
+    "Date" date,
+    "Trans_Amt" money,
+    "Trans_Desc" text COLLATE pg_catalog."default",
+    "123" numeric,
+    CONSTRAINT "Billing_pkey" PRIMARY KEY ("BillingID")
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public."Billing"
+    OWNER to postgres;
+
+-- Table: public.CRM_Backend
+
+-- DROP TABLE public."CRM_Backend";
+
+CREATE TABLE IF NOT EXISTS public."CRM_Backend"
+(
+    "CRMLogin" integer[] NOT NULL,
+    "Password" "char",
+    CONSTRAINT "CRM_Backend_pkey" PRIMARY KEY ("CRMLogin")
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public."CRM_Backend"
+    OWNER to postgres;
+
+-- Table: public.GuestReg
+
+-- DROP TABLE public."GuestReg";
+
+CREATE TABLE IF NOT EXISTS public."GuestReg"
+(
+    "PKey" integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    "MemberID" integer,
+    "Date" date,
+    CONSTRAINT "GuestReg_pkey" PRIMARY KEY ("PKey")
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public."GuestReg"
+    OWNER to postgres;
+
+-- Table: public.GuestRegristrationGuestList
+
+-- DROP TABLE public."GuestRegristrationGuestList";
+
+CREATE TABLE IF NOT EXISTS public."GuestRegristrationGuestList"
+(
+    "Name" character(20) COLLATE pg_catalog."default",
+    "TimeIn" time without time zone,
+    "TimeOut" time without time zone,
+    "QrCOde" character(20) COLLATE pg_catalog."default",
+    "GuestRegID" integer NOT NULL,
+    "ID" integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    CONSTRAINT "GuestRegristrationGuestList_pkey" PRIMARY KEY ("ID")
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public."GuestRegristrationGuestList"
+    OWNER to postgres;
+
+-- Table: public.Member
+
+-- DROP TABLE public."Member";
+
+CREATE TABLE IF NOT EXISTS public."Member"
+(
+    "MemberID" integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    "Username" character varying(255) COLLATE pg_catalog."default",
+    "Password" character varying(255) COLLATE pg_catalog."default",
+    "Name" name,
+    "JoinDate" date,
+    "Address" text COLLATE pg_catalog."default",
+    "MemberProfileID" integer,
+    "Active" boolean
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public."Member"
+    OWNER to postgres;
+
+-- Table: public.Newsletter
+
+-- DROP TABLE public."Newsletter";
+
+CREATE TABLE IF NOT EXISTS public."Newsletter"
+(
+    "NewsID" integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    "Title" text COLLATE pg_catalog."default",
+    "Content" text COLLATE pg_catalog."default",
+    CONSTRAINT "NewsLatter_pkey" PRIMARY KEY ("NewsID")
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public."Newsletter"
+    OWNER to postgres;
+
+-- Table: public.users
+
+-- DROP TABLE public.users;
+
+CREATE TABLE IF NOT EXISTS public.users
+(
+    username text COLLATE pg_catalog."default",
+    password text COLLATE pg_catalog."default",
+    usertype text COLLATE pg_catalog."default",
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    CONSTRAINT users_pkey PRIMARY KEY (id)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public.users
+    OWNER to postgres;
+
+-- Table: public."SecurityOfficer"
+
+-- DROP TABLE public."SecurityOfficer";
+
+CREATE TABLE public."SecurityOfficer"
+(
+    "SecurityOfficerID" integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    username character varying(255) COLLATE pg_catalog."default",
+    password character varying(255) COLLATE pg_catalog."default",
+    "Name" name,
+    CONSTRAINT "Security_pkey" PRIMARY KEY ("SecurityOfficerID")
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public."SecurityOfficer"
+    OWNER to postgres;
+
+-- DROP TABLE public."MemberProfilePicture";
+
+CREATE TABLE IF NOT EXISTS public."MemberProfilePicture"
+(
+    "PKey" integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    "MemberID" integer,
+    "ProfilePicture" text,
+    CONSTRAINT "MemberProfilePicture_pkey" PRIMARY KEY ("PKey")
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public."MemberProfilePicture"
+    OWNER to postgres;
+
+-- Table: public.MemberDetails
+
+-- DROP TABLE public."MemberDetails";
+
+CREATE TABLE IF NOT EXISTS public."MemberDetails"
+(
+    "Mobile" text COLLATE pg_catalog."default",
+    "Email" text COLLATE pg_catalog."default",
+    "Address1" text COLLATE pg_catalog."default",
+    "Address2" text COLLATE pg_catalog."default",
+    "City" text COLLATE pg_catalog."default",
+    "Postal" integer,
+    "Country" text COLLATE pg_catalog."default",
+    "Company" text COLLATE pg_catalog."default",
+    "Job" text COLLATE pg_catalog."default",
+    "MemberID" integer,
+    "ID" integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    "Tipe" text COLLATE pg_catalog."default",
+    CONSTRAINT "MemberDetails_pkey" PRIMARY KEY ("ID")
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public."MemberDetails"
+    OWNER to postgres;
+
+-- Table: public.MemberPreferences
+
+-- DROP TABLE public."MemberPreferences";
+
+CREATE TABLE IF NOT EXISTS public."MemberPreferences"
+(
+    "PID" integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    "MemberID" integer,
+    "Phone" smallint,
+    "Email" smallint,
+    "Work" smallint,
+    "WEmail" smallint,
+    "Type" character(1) COLLATE pg_catalog."default",
+    CONSTRAINT "MemberPreferences_pkey" PRIMARY KEY ("PID")
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public."MemberPreferences"
+    OWNER to postgres;

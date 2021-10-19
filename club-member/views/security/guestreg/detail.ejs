@@ -1,0 +1,90 @@
+<%- include('../partials/head') -%> 
+
+  <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+    
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Guest Registration</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="/security/guestreg">Guest Registration</a></li> 
+              <li class="breadcrumb-item">Detail</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+
+          <!-- /.col-md-6 -->
+          <div class="col-12">
+            <div class="card card-default">
+              <div class="card-header">
+                Guest Information
+              </div>
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="guestName">Guest Name</label>
+                  <input type="guestName" id="guestName" name="guestName" value="<%= data.guestRegDetail.GuestName %>" class="form-control" readonly="readonly">
+                </div>
+                <div class="form-group">
+                  <label for="memberName">Member Name</label>
+                  <input type="memberName" id="memberName" name="memberName" value="<%= data.guestRegDetail.Name %>" class="form-control" readonly="readonly">
+                </div>
+                <div class="form-group">
+                  <label for="visitDate">Visit Date</label>
+                  <input type="visitDate" id="visitDate" name="visitDate" value="<%= moment(data.guestRegDetail.Date).format('DD MMM YYYY')  %>" class="form-control" readonly="readonly">
+                </div>
+                <div class="form-group">
+                  <label for="timeIn">Time In</label>
+                  <input type="timeIn" id="timeIn" name="timeIn" value="<%= data.guestRegDetail.TimeIn  %>" class="form-control" readonly="readonly">
+                </div>
+                <div class="form-group">
+                  <label for="timeOut">Time Out</label>
+                  <input type="timeOut" id="timeOut" name="timeOut" value="<%= moment(data.guestRegDetail.TimeOut).format('LT')  %>" class="form-control" readonly="readonly">
+                </div>
+              </div>
+            </div>
+          </div>
+            <div class="col-6 text-left">
+              <form action="/security/guestreg/checkin" method="POST">
+                <input type="hidden" name="code" value="<%= data.code %>"/>
+                <button type="submit" class="btn btn-dark">Check IN</button>
+              </form>
+            </div>
+            <div class="col-6 text-right">
+                <button type="button" class="btn btn-dark" onclick="window.location.href='/security/guestreg'">Close</button>
+            </div>
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+<%- include('../partials/footer') -%> 
+
+<script type="text/javascript">
+
+  $( document ).ready(function() 
+  {
+    $(".qrcode").each(function( index ) 
+    {
+      new QRCode(document.getElementById($( this ).attr("id")), { text: $( this ).attr("data-code"), width: 75, height: 75 });
+    });
+  });
+
+</script>

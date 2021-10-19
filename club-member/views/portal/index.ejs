@@ -1,0 +1,126 @@
+<%- include('partials/head') -%> 
+
+  <link rel="stylesheet" href="/club/assets/plugins/owl-caroussel/assets/owl.carousel.min.css">
+  <link rel="stylesheet" href="/club/assets/plugins/owl-caroussel/assets/owl.theme.default.min.css">
+
+  <style type="text/css">
+    .shortcuts img
+    {
+      width: 100%
+    }
+  </style>
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Dashboard</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Dashboard</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="owl-carousel">
+              <div>
+                <img src="/club/assets/img/banner1.png" />
+              </div>
+              <div>
+                <img src="/club/assets/img/banner2.png" />
+              </div>
+              <div>
+                <img src="/club/assets/img/banner3.png" />
+              </div>
+            </div>
+          </div>
+          <div class="col-12 mb-3 shortcuts">
+            <div class="row">
+              <div class="col-3 text-center">
+                <a href="/portal/guestreg">
+                  <img src="/club/assets/img/icon1.png" />
+                </a>
+              </div>
+              <div class="col-3 text-center">
+                <a href="/portal/memberdetails">
+                  <img src="/club/assets/img/icon2.png" />
+                </a>
+              </div>
+              <div class="col-3 text-center">
+                <a href="/portal/bview">
+                  <img src="/club/assets/img/icon3.png" />
+                </a>
+              </div>
+              <div class="col-3 text-center">
+                <a href="/portal/newsletter">
+                  <img src="/club/assets/img/icon4.png" />
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <% if (newsletters) { %>
+                <div class="row">
+                <% for(var i=0; i < newsletters.length; i++) { %>
+                  <div class="col-3">
+                      <div class="card">
+                        <div class="card-body">
+                          <h5 class="card-title"><%= newsletters[i].Title %></h5>
+                          <p class="card-text"><%= newsletters[i].Content %></p>
+                          <a href="/portal/newsletter/view/<%= newsletters[i].NewsID %>" class="btn btn-primary">View</a>
+                        </div>
+                      </div>
+                  </div>
+                <% } %>
+                </div>
+            <% } %>
+          </div>
+          <!-- /.col-md-6 -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+    
+  </div>
+  <!-- /.content-wrapper -->
+
+<%- include('partials/footer') -%> 
+
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
+<script src="/club/assets/js/table2csv.js"></script>
+<script src="/club/assets/plugins/owl-caroussel/owl.carousel.min.js"></script>
+
+<script type="text/javascript">
+
+  $(document).ready(function(){
+    $(".owl-carousel").owlCarousel({
+      "items": 1,
+      "autoplay": true,
+      "loop": true,
+      responsive : {
+        480 : {
+          "items": 1,
+        },
+        768 : {
+          "items": 2,
+        },
+      }
+    });
+  });
+
+</script>

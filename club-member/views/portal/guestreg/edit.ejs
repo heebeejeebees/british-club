@@ -1,0 +1,62 @@
+<%- include('../partials/head') -%> 
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Guest Registration</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="/portal/guestreg">Guest Registration</a></li> 
+              <li class="breadcrumb-item active">Add New</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+          <div class="row">
+            <div class="col-12 col-lg-8 col-xl-6">
+              <div class="card card-default">
+                <div class="card-header">
+                  <h3 class="card-title">Guest Registration Form</h3>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                <form role="form" action="/portal/guestreg/create" method="POST">
+                  <div class="card-body">
+                    <div class="form-group">
+                      <label for="date">Visit Date</label>
+                      <input type="date" id="date" name="date" value="<%= data.today %>" class="form-control" autocomplete="off">
+                    </div>
+                  </div>
+                  <!-- /.card-body -->
+
+                  <div class="card-footer">
+                    <button type="submit" class="btn btn-dark">Submit</button>
+                    <button onclick="location.href='/portal/guestreg'" class="btn btn-default float-right">Cancel</button>
+                  </div>
+                </form>
+              </div>
+            </div>            
+            <!-- /.col-md-6 -->
+          </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+ 
+    <!-- /.content-wrapper -->
+</div>
+
+<%- include('../partials/footer') -%> 

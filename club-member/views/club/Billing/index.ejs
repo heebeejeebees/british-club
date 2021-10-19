@@ -1,0 +1,96 @@
+<%- include('../partials/head') -%> 
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Reg. Billing</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">RegBilling</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+
+          <div class="col-12 mb-2">
+            <button onclick="window.location='/club/billing/new'" class="btn btn-default"><i class="fas fa-plus"></i> ADD NEW</button>
+          </div>
+          <!-- /.col-md-6 -->
+          
+          <div class="col-12">
+            <div class="card">
+                <div class="card-header d-none">
+                  <h3 class="card-title">Billing Registration</h3>
+
+                  <div class="card-tools">
+                    <div class="input-group input-group-sm" style="width: 150px;">
+                      <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+                      <div class="input-group-append">
+                        <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0">
+                  <% if (data) { %>
+                    <table class="table table-hover text-nowrap">
+                      <thead>
+                        <tr>
+                          <th>BillingID</th>
+                          <th>Name</th>
+                          <th>Date</th>
+                          <th>Trans_Amt</th>
+                          <th>Trans_Desc</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% for(var i=0; i < data.length; i++) { %>
+                           <tr>
+                             <td><%= data[i].BillingID %></td>
+                             <td><%= data[i].Name %></td>
+                             <td><%= moment(data[i].Date).format('DD/MM/YYYY')  %></td>
+                             <td><%= data[i].Trans_Amt %></td>
+                             <td><%= data[i].Trans_Desc %></td>
+                             <td>
+                              <a href="/club/billing/edit/<%= data[i].BillingID %>" class="float-left">edit</a> <span class="float-left">&nbsp;|&nbsp;</span> 
+                              <form name="delete<%= data[i].MemberID %>" action="/club/member/delete" method="POST" class="float-left"><a href="#" onclick="return confirm('Are you sure?') ? document.forms.delete<%= data[i].id %>.submit() : false">delete</a><input name="id" type="hidden" value="<%= data[i].MemberID %>"/></form>
+                             </td>
+                           </tr>
+                        <% } %>
+                      </tbody>
+                    </table>
+                  <% } else { %>
+                    <div class="col-12 text-center p-2">
+                      No data yet.
+                    </div>
+                  <% } %>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+            </div>
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+<%- include('../partials/footer') -%> 

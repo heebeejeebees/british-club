@@ -1,0 +1,411 @@
+<%- include('../partials/head') -%> 
+<style>
+  .flex-parent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .box {
+    border: 2px solid black;
+    margin: 20px;
+    padding: 20px;
+  }
+</style>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Member Details</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Member Details</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+
+    <!-- /.content-header -->
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 text-center">
+                <% if(user.pp) { %>
+                    <img src="data:image/png;base64,<%= user.pp %>" class="img-circle elevation-2" alt="User Image" style="width: 11rem; height: 11rem;">
+                <% } else{ %>  
+                    <img src="data:image/png;base64,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" class="img-circle elevation-2" alt="User Image" style="width: 11rem; height: 11rem;">
+                <% } %>
+            </div>
+            <div class="col-12 text-center">
+                <label style="color:blue;font-size:18px;"> <%= data.Name %></label>
+            </div>
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Personal Information</h5>
+                    </div>
+                    <div class="card-body">
+                      <form>
+                        <div class="form-group">
+                          <label for="fullName">Full Name</label>
+                          <input type="email" class="form-control" id="fullName" aria-describedby="fullName" placeholder="Enter email" value="<%= data.Name %>" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="dob">Date of Birth</label>
+                            <input type="dob" class="form-control" id="dob" aria-describedby="dob" placeholder="Date of birth" value="<%= data.Birth %>" readonly>
+                          </div>
+                          <div class="form-group">
+                            <label for="nationality">Nationality</label>
+                            <input type="nationality" class="form-control" id="nationality" aria-describedby="nationality" placeholder="Nationality" value="<%= data.Nationality %>" readonly>
+                          </div>
+                      </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Membership Information</h5>
+                    </div>
+                    <div class="card-body">
+                      <form>
+                        <div class="form-group">
+                          <label for="mshipType">Membership Type</label>
+                          <input type="text" class="form-control" id="mshipType" aria-describedby="mshipType" placeholder="Membership Type" value="<%= data.MembershipType %>" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="jd">Join Date</label>
+                            <input type="text" class="form-control" id="jd" aria-describedby="jd" placeholder="Join Date" value="<%= data.JoinDate %>" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="cardType">Card Type</label>
+                            <input type="text" class="form-control" id="cardType" aria-describedby="cardType" placeholder="Card Type" value="<%= data.CardType %>" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="expiryDate">Expiry Date</label>
+                            <input type="text" class="form-control" id="expiryDate" aria-describedby="expiryDate" placeholder="Expiry Date" value="<%= data.ExpiryDate %>" readonly>
+                        </div>
+                      </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+              <form role="form" action="/portal/memberdetails/submit" method="POST"> 
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Personal Contact Details</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                          <label for="fname">Phone Number</label>
+                          <input type="text" class="form-control" id="Phone" name="Phone" value="<%= HomeD.Mobile %>">
+                        </div>
+                        <div class="form-group">
+                            <label for="femail">Personal Email</label>
+                            <input type="text" class="form-control" id="Email" name="Email" value="<%= HomeD.Email %>">
+                        </div>
+                        <div class="form-group">
+                            <label>Address</label>
+                            <br><input type="text" class="form-control" id="Address1" name="Address1" value="<%= HomeD.Address1 %>">
+                            <br><input type="text" class="form-control" id="Address2" name="Address2" value="<%= HomeD.Address2 %>">
+                        </div>
+                        <div class="form-group">
+                            <label>City</label>
+                            <br><input type="text" class="form-control" id="City" name="City" value="<%= HomeD.City %>">
+                        </div>
+                        <div class="form-group">
+                            <label>Postal</label>
+                            <br><input type="text" class="form-control" id="Postal" name="Postal" value="<%= HomeD.Postal %>">
+                        </div>
+                        <div class="form-group">
+                            <label>Country</label>
+                            <br><input type="text" class="form-control" id="Country" name="Country" value="<%= HomeD.Country %>">
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <input type="hidden" id="id" name="id" value="<%= data.MemberID %>" class="form-control">
+                        <button type="submit" name="action" value="personal_details" class="btn btn-dark float-right">Submit</button>
+                    </div>
+                </div>
+              </form>
+            </div>
+            <div class="col-6">
+              <form role="form" action="/portal/memberdetails/submit" method="POST">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Company Details</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="fname">Company Name</label>
+                            <input type="text" class="form-control" id="Company" name="Company" value="<%= WorkD.Company %>">
+                        </div>
+                        <div class="form-group">
+                            <label for="fname">Work Title</label>
+                            <input type="text" class="form-control" id="Work" name="Work" value="<%= WorkD.Job %>">
+                        </div>
+                        <div class="form-group">
+                          <label for="fname">Phone Number</label>
+                          <input type="text" class="form-control" id="WPhone" name="WPhone" value="<%= WorkD.Mobile %>">
+                        </div>
+                        <div class="form-group">
+                            <label for="femail">Work Email</label>
+                            <input type="text" class="form-control" id="WEmail" name="WEmail" value="<%= WorkD.Email %>">
+                        </div>
+                        <div class="form-group">
+                            <label>Address</label>
+                            <br><input type="text" class="form-control" id="WAddress1" name="WAddress1" value="<%= WorkD.Address1 %>">
+                            <br><input type="text" class="form-control" id="WAddress2" name="WAddress2" value="<%= WorkD.Address2 %>">
+                        </div>
+                        <div class="form-group">
+                            <label>City</label>
+                            <br><input type="text" class="form-control" id="WCity" name="WCity" value="<%= WorkD.City %>">
+                        </div>
+                        <div class="form-group">
+                            <label>Postal</label>
+                            <br><input type="text" class="form-control" id="WPostal" name="WPostal" value="<%= WorkD.Postal %>">
+                        </div>
+                        <div class="form-group">
+                            <label>Country</label>
+                            <br><input type="text" class="form-control" id="WCountry" name="WCountry" value="<%= WorkD.Country %>">
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <input type="hidden" id="id" name="id" value="<%= data.MemberID %>" class="form-control">
+                        <button type="submit" name="action" value="company_details" class="btn btn-dark float-right">Submit</button>
+                    </div>
+                </div>
+              </form>
+            </div>
+            <div class="col-6">
+              <form role="form" action="/portal/memberdetails/submit" method="POST">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Preferences</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                        <tr>
+                            <th></th>
+                            <th>Mobile<br>Number</th>
+                            <th>Personal<br>Email</th>
+                            <th>Work<br>Phone</th>
+                            <th>Work<br>Email</th>
+                        </tr>
+                        <tr>
+                            <td>Primary Contact</td>   
+                            <%  var sa1="" %>
+                            <%  var sa2="" %>
+                            <%  var sa3="" %>
+                            <%  var sa4="" %>
+                
+                            <%  if(prefP.Phone == 1 ) { sa1 = 'checked'  } else {  sa = ' ' } %>
+                            <%  if(prefP.Email == 1 ) { sa2 = 'checked'  } else {  sa = ' ' } %>
+                            <%  if(prefP.Work == 1 ) { sa3 = 'checked'  } else {  sa = ' ' } %>
+                            <%  if(prefP.WEmail == 1 ) { sa4 = 'checked'  } else {  sa = ' ' } %>
+                
+                            <td><input type="radio" id="v1" name="primary" value="personal_mobile" onclick="myFunction()" <%= sa1 %>></td>
+                            <td><input type="radio" id="v2" name="primary" value="personal_email" onclick="myFunction2()" <%= sa2 %>></td>
+                            <td><input type="radio" id="v3" name="primary" value="work_mobile" onclick="myFunction3()" <%= sa3 %>></td>
+                            <td><input type="radio" id="v4" name="primary" value="work_email" onclick="myFunction4()"<%= sa4 %>></td>
+                        </tr>
+                        <tr>
+                            <td>Correspondence</td>
+                            <%  var Ca1="" %>
+                            <%  var Ca2="" %>
+                            <%  var Ca3="" %>
+                            <%  var Ca4="" %>
+                
+                            <%  if(prefC.Phone == 1 ) { Ca1 = 'checked'  } else {  sa = ' ' } %>
+                            <%  if(prefC.Email == 1 ) { Ca2 = 'checked'  } else {  sa = ' ' } %>
+                            <%  if(prefC.Work == 1 ) { Ca3 = 'checked'  } else {  sa = ' ' } %>
+                            <%  if(prefC.WEmail == 1 ) { Ca4 = 'checked'  } else {  sa = ' ' } %>
+                
+                            <td><input type="radio" id="c1" name="correspondence" value="personal_mobile" onclick="myF1()" <%= Ca1 %>></td>
+                            <td><input type="radio" id="c2" name="correspondence" value="personal_email" onclick="myF2()" <%= Ca2 %>></td>
+                            <td><input type="radio" id="c3" name="correspondence" value="work_mobile" onclick="myF3()" <%= Ca3 %>></td>
+                            <td><input type="radio" id="c4" name="correspondence" value="work_email" onclick="myF4()" <%= Ca4 %>></td>
+                        </tr>
+                        </table>
+                    </div>
+                    <div class="card-footer">
+                      <input type="hidden" id="id" name="id" value="<%= data.MemberID %>" class="form-control">
+                      <button type="submit" name="action" value="preferences" class="btn btn-dark float-right">Submit</button>
+                    </div>
+                </div>
+              </form>
+            </div>
+            <div class="col-6">
+                &nbsp;
+            </div>
+          </tr>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    function myFunction() {
+      var checkBox1 = document.getElementById("v1");
+      var checkBox2 = document.getElementById("v2");
+      var checkBox3 = document.getElementById("v3");
+      var checkBox4 = document.getElementById("v4");
+      var i, y;
+
+      
+      if (checkBox1.checked == true){
+        checkBox1.nodeValue = 1;
+        checkBox2.nodeValue = 0;
+        checkBox3.nodeValue = 0;
+        checkBox4.nodeValue = 0;
+        checkBox2.checked = false;
+        checkBox3.checked = false;
+        checkBox4.checked = false;
+      }
+    }
+
+    function myFunction2() {
+      var checkBox1 = document.getElementById("v1");
+      var checkBox2 = document.getElementById("v2");
+      var checkBox3 = document.getElementById("v3");
+      var checkBox4 = document.getElementById("v4");
+      var i, y;
+
+      
+      if (checkBox2.checked == true){
+        checkBox1.nodeValue = 0;
+        checkBox2.nodeValue = 1;
+        checkBox3.nodeValue = 0;
+        checkBox4.nodeValue = 0;
+        checkBox1.checked = false;
+        checkBox3.checked = false;
+        checkBox4.checked = false;
+      }
+    }
+
+    function myFunction3() {
+      var checkBox1 = document.getElementById("v1");
+      var checkBox2 = document.getElementById("v2");
+      var checkBox3 = document.getElementById("v3");
+      var checkBox4 = document.getElementById("v4");
+      var i, y;
+
+      
+      if (checkBox3.checked == true){
+        checkBox1.nodeValue = 0;
+        checkBox2.nodeValue = 0;
+        checkBox3.nodeValue = 1;
+        checkBox4.nodeValue = 0;
+        checkBox2.checked = false;
+        checkBox1.checked = false;
+        checkBox4.checked = false;
+      }
+    }
+
+    function myFunction4() {
+      var checkBox1 = document.getElementById("v1");
+      var checkBox2 = document.getElementById("v2");
+      var checkBox3 = document.getElementById("v3");
+      var checkBox4 = document.getElementById("v4");
+      var i, y;
+
+      
+      if (checkBox4.checked == true){
+        checkBox1.nodeValue = 0;
+        checkBox2.nodeValue = 0;
+        checkBox3.nodeValue = 0;
+        checkBox4.nodeValue = 1;
+        checkBox2.checked = false;
+        checkBox3.checked = false;
+        checkBox1.checked = false;
+      }
+    }
+
+    function myF1() {
+      var checkBox1 = document.getElementById("c1");
+      var checkBox2 = document.getElementById("c2");
+      var checkBox3 = document.getElementById("c3");
+      var checkBox4 = document.getElementById("c4");
+      var i, y;
+
+      
+      if (checkBox1.checked == true){
+        checkBox1.nodeValue = 1;
+        checkBox2.nodeValue = 0;
+        checkBox3.nodeValue = 0;
+        checkBox4.nodeValue = 0;
+        checkBox2.checked = false;
+        checkBox3.checked = false;
+        checkBox4.checked = false;
+      }
+    }
+
+    function myF2() {
+      var checkBox1 = document.getElementById("c1");
+      var checkBox2 = document.getElementById("c2");
+      var checkBox3 = document.getElementById("c3");
+      var checkBox4 = document.getElementById("c4");
+      var i, y;
+
+      
+      if (checkBox2.checked == true){
+        checkBox1.nodeValue = 0;
+        checkBox2.nodeValue = 1;
+        checkBox3.nodeValue = 0;
+        checkBox4.nodeValue = 0;
+        checkBox1.checked = false;
+        checkBox3.checked = false;
+        checkBox4.checked = false;
+      }
+    }
+
+    function myF3() {
+      var checkBox1 = document.getElementById("c1");
+      var checkBox2 = document.getElementById("c2");
+      var checkBox3 = document.getElementById("c3");
+      var checkBox4 = document.getElementById("c4");
+      var i, y;
+
+      
+      if (checkBox3.checked == true){
+        checkBox1.nodeValue = 0;
+        checkBox2.nodeValue = 0;
+        checkBox3.nodeValue = 1;
+        checkBox4.nodeValue = 0;
+        checkBox2.checked = false;
+        checkBox1.checked = false;
+        checkBox4.checked = false;
+      }
+    }
+
+    function myF4() {
+      var checkBox1 = document.getElementById("c1");
+      var checkBox2 = document.getElementById("c2");
+      var checkBox3 = document.getElementById("c3");
+      var checkBox4 = document.getElementById("c4");
+      var i, y;
+
+      
+      if (checkBox4.checked == true){
+        checkBox1.nodeValue = 0;
+        checkBox2.nodeValue = 0;
+        checkBox3.nodeValue = 0;
+        checkBox4.nodeValue = 1;
+        checkBox2.checked = false;
+        checkBox3.checked = false;
+        checkBox1.checked = false;
+      }
+    }
+  </script>
+
+  <%- include('../partials/footer') -%> 
+
+  

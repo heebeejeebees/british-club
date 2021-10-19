@@ -1,0 +1,111 @@
+<%- include('../partials/head') -%> 
+
+  <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+    
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Guest Registration</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="/portal/guestreg">Guest Registration</a></li> 
+              <li class="breadcrumb-item">Add New</li>
+              <li class="breadcrumb-item active">Confirm</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+
+          <!-- /.col-md-6 -->
+          <div class="col-12">
+            <div class="card card-default">
+              <div class="card-body">
+                You are having a guest visit on <%= moment(data.guestReg.Date).format('DD MMM YYYY')  %>, 
+                please confirm the information below.
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="card">
+                <div class="card-header d-none">
+                  <h3 class="card-title">Guest Registration</h3>
+
+                  <div class="card-tools">
+                    <div class="input-group input-group-sm" style="width: 150px;">
+                      <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                      <div class="input-group-append">
+                        <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0">
+                  <% if (data.guestRegList) { %>
+                    <table class="table table-hover text-nowrap">
+                      <thead>
+                        <tr>
+                          <th>ID</th>
+                          <th>Guest Name</th>
+                          <th>QR Code</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% for(var i=0; i < data.guestRegList.length; i++) { %>
+                           <tr>
+                             <td><%= i+1 %></td>
+                             <td><%= data.guestRegList[i].Name %></td>
+                             <td>
+                              <div id="qrcode_<%= i+1 %>" class="qrcode" data-code="<%= data.appUrl + 'link/visit/' + data.guestRegList[i].QrCode %>"></div>
+                             </td>
+                           </tr>
+                        <% } %>
+                      </tbody>
+                    </table>
+                  <% } else { %>
+                    <div class="col-12 text-center p-2">
+                      No data yet.
+                    </div>
+                  <% } %>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+            </div>
+            <div class="col-12 text-right">
+                <button type="button" class="btn btn-dark" onclick="window.location.href='/portal/guestreg'">Close</button>
+            </div>
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+<%- include('../partials/footer') -%> 
+
+<script type="text/javascript">
+
+  $( document ).ready(function() 
+  {
+    $(".qrcode").each(function( index ) 
+    {
+      new QRCode(document.getElementById($( this ).attr("id")), { text: $( this ).attr("data-code"), width: 75, height: 75 });
+    });
+  });
+
+</script>

@@ -1,0 +1,167 @@
+<%- include('../partials/head') -%> 
+  <script
+  src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+  </script>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Billing</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">BillingView</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+
+    <!-- /.content-header -->
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <label style="color:blue;font-size:18px;"> <%= data3[0].Name %></label>
+          </tr>
+        </div>
+      </div>
+    </div>
+
+    <!-- /.content-header -->
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <canvas id="myChart" style="width:50%"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          
+          <div class="col-12">
+            <div class="card">
+                <div class="card-header d-none">
+                  <h3 class="card-title">Billing</h3>
+
+                  <div class="card-tools">
+                    <div class="input-group input-group-sm" style="width: 150px;">
+                      <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+                      <div class="input-group-append">
+                        <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0">
+                  <% if (data) { %>
+                    <table class="table table-hover text-nowrap">
+                      <thead>
+                        <tr>
+                          <th>MemberID</th>
+                          <th>Name</th>
+                          <th>Current</th>
+                          <th>D30</th>
+                          <th>D60</th>
+                          <th>D90</th>
+                          <th>Total</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% for(var i=0; i < data.length; i++) { %>
+                           <tr>
+                            <td><%= data[i].MemberID %></td>
+                            <td><%= data[i].Name %></td>
+                            <td><%= data[i].Current %></td>
+                            <td><%= data[i].d30 %></td>
+                            <td><%= data[i].d60 %></td>
+                            <td><%= data[i].d90 %></td>
+                            <td><%= data[i].total %></td>
+                             <td>
+                              <!--<a href="/club/member/edit/<%= data[i].MemberID %>" class="float-left">edit</a> <span class="float-left">&nbsp;|&nbsp;</span> 
+                              <form name="delete<%= data[i].MemberID %>" action="/club/member/delete" method="POST" class="float-left"><a href="#" onclick="return confirm('Are you sure?') ? document.forms.delete<%= data[i].id %>.submit() : false">delete</a><input name="id" type="hidden" value="<%= data[i].MemberID %>"/></form> -->
+                             </td>
+                           </tr>
+                        <% } %>
+                           <tr>
+                            <td></td>
+                            <td>DueDate</td>
+                            <td><%=Date.now().Date %></td>
+                            <td><%if( data[0].d30 > 0) {"Overdue";} %></td>
+                            <td><%if( data[0].d60 > 0) {"Overdue";} %></td>
+                            <td><%if( data[0].d90 > 0) {"Overdue";} %></td>
+                            <td></td>
+                           </tr>
+                      </tbody>
+                    </table>
+                  <% } else { %>
+                    <div class="col-12 text-center p-2">
+                      No data yet.
+                    </div>
+                  <% } %>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+            </div>
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <%- include('../partials/footer') -%> 
+
+  <script type="text/javascript">
+
+//var xyValues = [
+//  {x: 1, y: 200},
+//  {x: 2, y: 400},
+//  {x: 3, y: 600}
+//]
+
+  var xyValues = []
+  <% if (data2){ %>
+  <% for(var i=0;i<data2.length;i++) { %>
+  xyValues.push({x:<%= data2[i].Mth %>, y:<%= data2[i].Amt %>})
+  <% }} %>
+  //console.log(xyValues);
+    
+  var ctx = document.getElementById('myChart').getContext('2d'); // 2d context
+
+  var myChart = new Chart(ctx, 
+  {
+    type: 'bar',
+    data: {
+      labels: ['1','2','3','4','5'],
+      datasets: [{
+        pointRadius: 4,
+        data: xyValues,
+        backgroundColor: '#ff0000'
+      }]
+    },
+    options: {
+      plugins: {
+        legend: {
+        position: 'top',
+      },
+      },
+      scales: {
+        xAxes: [{ticks:{min:1, max: 200}}],
+        yAxes: [{ticks:{min:1}}]
+      }
+    }
+  })
+    </script>
