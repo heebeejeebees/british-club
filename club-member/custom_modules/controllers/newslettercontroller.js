@@ -166,7 +166,7 @@ module.exports = class NewsletterController {
 			console.log("[newsletter][delete]..." + JSON.stringify(params));
 
 			var sql = '	DELETE FROM \"Newsletter\" \
-						WHERE \"NewsletterID\" = $1::int '
+						WHERE \"NewsID\" = $1::int '
 
 			var queryResult = await pool.query(sql,[id]);
 			

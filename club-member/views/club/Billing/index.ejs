@@ -68,7 +68,7 @@
                              <td><%= data[i].Trans_Desc %></td>
                              <td>
                               <a href="/club/billing/edit/<%= data[i].BillingID %>" class="float-left">edit</a> <span class="float-left">&nbsp;|&nbsp;</span> 
-                              <form name="delete<%= data[i].MemberID %>" action="/club/member/delete" method="POST" class="float-left"><a href="#" onclick="return confirm('Are you sure?') ? document.forms.delete<%= data[i].id %>.submit() : false">delete</a><input name="id" type="hidden" value="<%= data[i].MemberID %>"/></form>
+                              <form name="delete<%= data[i].BillingID %>" action="/club/billing/delete" method="POST" class="float-left"><a href="#" onclick="return confirm('Are you sure?') ? document.forms.delete<%= data[i].BillingID %>.submit() : false">delete</a><input name="id" type="hidden" value="<%= data[i].BillingID %>"/></form>
                              </td>
                            </tr>
                         <% } %>

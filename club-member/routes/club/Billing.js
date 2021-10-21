@@ -45,8 +45,8 @@ router.post('/delete', async function(req, res, next) {
 
 	try
 	{
-		await kelurahan_ctl.delete(req.pool, req.body['id']);
-		res.redirect(301, '/gpm/kelurahan');
+		await billing_ctl.delete(req.pool, req.body['id']);
+		res.redirect(301, '/club/billing');
 	}
 	catch (e)
 	{

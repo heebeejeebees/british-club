@@ -64,7 +64,7 @@
                              <td><%= data[i].Content %></td>
                              <td>
                               <a href="/club/newsletter/edit/<%= data[i].NewsID %>" class="float-left">edit</a> <span class="float-left">&nbsp;|&nbsp;</span> 
-                              <form name="delete<%= data[i].NewsID %>" action="/club/newsletter/delete" method="POST" class="float-left"><a href="#" onclick="return confirm('Are you sure?') ? document.forms.delete<%= data[i].NewsletterID %>.submit() : false">delete</a><input name="id" type="hidden" value="<%= data[i].NewsletterID %>"/></form>
+                              <form name="delete<%= data[i].NewsID %>" action="/club/newsletter/delete" method="POST" class="float-left"><a href="#" onclick="return confirm('Are you sure?') ? document.forms.delete<%= data[i].NewsID %>.submit() : false">delete</a><input name="id" type="hidden" value="<%= data[i].NewsID %>"/></form>
                              </td>
                            </tr>
                         <% } %>

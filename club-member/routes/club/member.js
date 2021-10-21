@@ -43,7 +43,7 @@ router.post('/delete', auth, async function(req, res, next) {
 
 	try
 	{
-		await kelurahan_ctl.delete(req.pool, req.body['id']);
+		await member_ctl.delete(req.pool, req.body['id']);
 		res.redirect(301, '/club/member');
 	}
 	catch (e)
